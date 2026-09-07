@@ -1,0 +1,305 @@
+/* ── COLOR PALETTES ───────────────────────────────────── */
+:root {
+  --bg:      #0b0118; 
+  --surface: rgba(23, 3, 44, 0.85); 
+  --border:  #ff007f; 
+  --accent:  #00f3ff; 
+  --text:    #ffffff; 
+  --muted:   #8a63d2; 
+  --green:   #39ff14; 
+  --red:     #ff003c; 
+  --radius:  12px;
+}
+
+/* ── GENERAL RESET ──────────────────────────────────────────────────────── */
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+/* ── BACKGROUND AND SCROLLING ANIMATIONS ────────────────────────────── */
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background-image: 
+    linear-gradient(rgba(255, 0, 127, 0.08) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(0, 243, 255, 0.08) 2px, transparent 2px);
+  background-size: 50px 50px; 
+  z-index: -1; 
+  animation: scrollGridUp 4s linear infinite;
+}
+
+@keyframes scrollGridUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50px); }
+}
+
+/* ── HEADER AND LOGO ────────────────────────────────────────────────────────── */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+#main-logo {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 0rem;
+  filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.4));
+}
+
+#score-display {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--accent);
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: none;
+}
+
+/* ── HIGHEST SCORE AND STATUS BADGES ────────────────────────────────────────── */
+.high-score-container {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  z-index: 100;
+}
+
+.score-badge, .status {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: #000000;
+}
+
+.score-badge {
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 12px var(--accent), inset 0 0 6px var(--accent);
+  text-align: center;
+}
+
+.status {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+}
+
+.status.connected { 
+  color: var(--green); 
+  border: 2px solid var(--green);
+  box-shadow: 0 0 12px var(--green), inset 0 0 6px var(--green);
+}
+.status.disconnected { 
+  color: var(--red); 
+  border: 2px solid var(--red);
+  box-shadow: 0 0 12px var(--red), inset 0 0 6px var(--red);
+}
+.status.connecting { 
+  color: var(--muted); 
+  border: 2px solid var(--muted);
+}
+
+/* ── VOLUME SLIDER ────────────────────────────────────────────────────── */
+.volume-controls {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  background: rgba(11, 1, 24, 0.8);
+  padding: 0.6rem 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--muted);
+  box-shadow: 0 0 10px rgba(138, 99, 210, 0.2);
+}
+
+.slider-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* ── GENERAL CONTENT AND BOXES POSITIONING ───────────────────────────── */
+main { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 1.5rem; 
+  max-width: 700px; 
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 0, 127, 0.4), inset 0 0 15px rgba(255, 0, 127, 0.2);
+  backdrop-filter: blur(4px); 
+}
+
+/* COLORS FOR TEXT */
+#question-number.tier-0 { color: var(--red);}
+#question-number.tier-1 { color: #ff9d00;} /* Orange */
+#question-number.tier-2 { color: var(--green);}
+#question-number.tier-3 { color: #ffd700;} /* Gold */
+
+.result-description {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+.question-text {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+/* ── ANSWER OPTIONS (A, B, C) ────────────────────────────────────── */
+.options-row {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  flex: 1;
+  min-width: 160px;
+  box-shadow: none;
+  backdrop-filter: blur(4px);
+}
+
+.btn-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(11, 1, 24, 0.9);
+  border: 3px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.3rem;
+  color: var(--border);
+  box-shadow: 0 0 10px var(--border);
+}
+
+.btn-label { 
+  font-size: 1.1rem; 
+  color: var(--text); 
+  font-weight: 600; 
+  text-align: center;
+}
+
+/* ── ANSWER EVALUTAZION BOX ────────────────────────────────────────────────────── */
+.feedback-card {
+  border-color: #ffd700; 
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3), inset 0 0 10px rgba(255, 215, 0, 0.1);
+  padding: 1.5rem;
+  margin-top: -0.5rem;
+  transition: all 0.3s ease;
+}
+
+#feedback-text {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.text-correct {
+  color: var(--green);
+}
+
+.text-wrong {
+  color: var(--red);
+}
+
+/* ── BOOT SCREEN (BROWSER CHECK) ───────────────────── */
+.boot-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.boot-screen:hover .boot-card {
+  border-color: var(--accent);
+  box-shadow: 0 0 30px var(--accent), inset 0 0 15px rgba(0, 243, 255, 0.3);
+  transform: scale(1.02);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.boot-card {
+  border: 2px solid var(--border);
+  box-shadow: 0 0 20px var(--border);
+  transition: all 0.4s ease;
+}
+
+.boot-card h2 {
+  font-size: 1.5rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px var(--border);
+}
+
+.hidden {
+  display: none !important;
+}

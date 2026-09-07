@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boot - The Quiz Show</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div id="boot-screen" class="boot-screen">
+    <div class="card boot-card">
+      <h2>Click here to start the game.</h2>
+    </div>
+  </div>
+
+  <script>
+    sessionStorage.removeItem('unlocked');
+    document.getElementById('boot-screen').addEventListener('click', () => {
+      sessionStorage.setItem('unlocked', 'true');
+      window.location.replace('index.html');
+    });
+  </script>
+</body>
+</html>

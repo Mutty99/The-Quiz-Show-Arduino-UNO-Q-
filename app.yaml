@@ -1,0 +1,6 @@
+name: The Quiz Show
+description: Partake on an interactive quiz with physical button presses. Follow instructions on screen to control the application.
+ports: []
+bricks:
+- arduino:web_ui: {}
+icon: 🎮

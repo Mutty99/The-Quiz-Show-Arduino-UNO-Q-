@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Quiz Show</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  
+  <script>
+    // Returns to boot at reload
+    const navEntries = window.performance.getEntriesByType("navigation");
+    const isReload = navEntries.length > 0 && navEntries[0].type === "reload";
+    
+    if (isReload || sessionStorage.getItem('unlocked') !== 'true') {
+        sessionStorage.removeItem('unlocked');
+        window.location.replace('boot.html');
+    }
+  </script>
+</head>
+<body>
+
+  <div id="app-content">
+    
+    <div class="high-score-container">
+      <div class="score-badge">Highest Score: <span id="hi-score-val">0</span></div>
+      <div id="new-record-badge" class="score-badge hidden">New Record!</div>
+    </div>
+
+    <header>
+      <img src="logo.png" alt="Modulino Quiz Logo" id="main-logo">
+      <span id="status" class="status connecting">Connecting…</span>
+      <div id="score-display">SCORE: <span id="score">0</span>/10</div>
+
+      <div class="volume-controls">
+        <div class="slider-group">
+          <label for="bgm-volume">🎵 BGM</label>
+          <input type="range" id="bgm-volume" min="0" max="1" step="0.05" value="0.5">
+        </div>
+        <div class="slider-group">
+          <label for="sfx-volume">🔊 SFX</label>
+          <input type="range" id="sfx-volume" min="0" max="1" step="0.05" value="0.5">
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="card question-card">
+        <h2 id="question-number">UniQuiz Show</h2>
+        <p id="result-description" class="result-description hidden"></p>
+        <p id="question-text" class="question-text">Connecting...</p>
+      </section>
+
+      <section class="options-row" id="options-row">
+        <div class="btn-card">
+          <div class="btn-circle">A</div>
+          <div class="btn-label" id="option-0">Option A</div>
+        </div>
+
+        <div class="btn-card">
+          <div class="btn-circle">B</div>
+          <div class="btn-label" id="option-1">Option B</div>
+        </div>
+
+        <div class="btn-card">
+          <div class="btn-circle">C</div>
+          <div class="btn-label" id="option-2">Option C</div>
+        </div>
+      </section>
+
+      <section id="feedback-box" class="card feedback-card hidden">
+        <p id="feedback-text"></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
